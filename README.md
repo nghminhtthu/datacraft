@@ -1,65 +1,44 @@
-# datacraft
-# Emerging AI Trends Detection from arXiv for Datacraft
+# Emerging AI Research Trend Analysis from arXiv for Datacraft
 
 ## Business Context
 
-The rapid acceleration of AI research has made it increasingly difficult for organizations to keep track of new technical directions. Datacraft requires a systematic, data-driven approach to anticipate which AI subfields are gaining momentum so that strategic planning, capability development, and client advisory remain ahead of the curve.
+AI research output on arXiv grows at a pace that makes manual tracking unrealistic. Datacraft needs a structured, data-driven way to understand which areas of AI research are gaining momentum so the organization can anticipate technological shifts, guide R&D priorities, and support clients with timely insights.
 
-This project provides an automated workflow that ingests newly published arXiv papers in machine learning and artificial intelligence, transforms their content into semantically meaningful representations, identifies coherent research themes, and quantifies which topics show accelerating growth. The output supports internal decision making across R&D, investment prioritization, talent planning, and strategic positioning within the AI ecosystem.
+This project provides an initial analytical foundation: a reproducible workflow that ingests arXiv metadata, cleans text, extracts meaningful linguistic signals using TF-IDF and bigram analysis, and examines publication trends over time. The goal is to surface early indicators of emerging AI themes without overcomplicating the pipeline.
 
 ---
 
 ## Technical Overview
 
-This repository implements a full trend-detection pipeline using modern NLP and unsupervised learning techniques. The solution is designed for rigor, interpretability, and reproducibility.
+The notebook implements a set of transparent, defensible techniques focused on metadata processing, text analysis, and temporal exploration.
 
-### 1. Data Acquisition
-- Retrieved recent academic papers from arXiv via the official API, focusing on AI-relevant categories such as `cs.LG`, `cs.AI`, and `stat.ML`.
-- Collected metadata including titles, abstracts, authors, publication dates, and category tags.
-- Implemented rate-limited, fault-tolerant harvesting to ensure complete and reproducible datasets.
+### 1. Data Ingestion and Preparation
+- Loaded arXiv metadata (titles, abstracts, categories, timestamps).
+- Normalized date formats and cleaned missing or inconsistent entries.
+- Standardized category labels to support category-level trend analysis.
 
-### 2. Text Preprocessing
-- Normalized and cleaned abstracts using best practices for scientific text.
-- Applied domain-sensitive token filtering to preserve essential technical terminology.
-- Standardized the pipeline to support temporal analyses.
+### 2. Text Cleaning and Token Engineering
+- Lowercased textual content and removed punctuation and stopwords.
+- Tokenized abstracts to produce unigrams and bigrams.
+- Prepared structured token lists suitable for statistical term analysis.
 
-### 3. Semantic Embeddings
-- Generated dense vector representations of abstracts using state-of-the-art transformer-based embedding models.
-- Validated embedding quality through nearest-neighbor analysis and topic coherence checks.
-- Prepared vectors optimized for clustering and downstream trend detection.
+### 3. TF-IDF Term Weighting
+- Constructed TF-IDF matrices from cleaned abstracts.
+- Identified terms with strong discriminative power across the corpus.
+- Used TF-IDF outputs to highlight terminology gaining prominence in recent papers.
 
-### 4. Topic Modeling and Clustering
-- Applied advanced clustering techniques (e.g., HDBSCAN, BERTopic-style pipelines) to discover latent research themes.
-- Used dimensionality reduction methods such as UMAP to reveal structure in the embedding space.
-- Created interpretable topic summaries using representative keywords and exemplar publications.
+### 4. Bigram Frequency Analysis
+- Generated frequency distributions for bigrams.
+- Surfaced recurring phrase patterns characteristic of active research areas.
+- Provided interpretable lexical signals without requiring full topic modeling.
 
-### 5. Temporal Trend Analysis
-- Computed topic frequencies across sliding publication windows.
-- Measured growth rates and acceleration to identify genuinely emerging topics rather than high-volume but stable ones.
-- Produced ranked trend lists based on both absolute and normalized metrics.
-
-### 6. Visualization and Reporting
-- Built clear visualizations showing topic landscapes, cluster distributions, and trend trajectories.
-- Generated business-friendly summaries backed by quantitative evidence.
-- Highlighted top emerging themes with example papers for context.
-
-### 7. Reproducibility and Pipeline Structure
-- Organized logic into modular, reusable notebook components.
-- Documented assumptions and configuration parameters for transparency.
-- Established a foundation suitable for automation and scheduled monitoring of AI research trends.
-
----
-
-## Key Deliverables
-- Curated dataset of arXiv AI papers.
-- Embedding-based topic models detecting meaningful research clusters.
-- Ranked list of emerging AI topics based on temporal trend analysis.
-- Visualization suite summarizing trend trajectories and cluster characteristics.
-- A modular analysis notebook that can evolve into a production-grade pipeline.
+### 5. Temporal Trend Exploration
+- Aggregated publication volume over time (daily and monthly).
+- Visualized growth patterns in AI-related categories.
+- Examined shifts in TF-IDF terms and bigrams across time windows to detect emerging conceptual trends.
 
 ---
 
 ## Impact
 
-The project translates the overwhelming stream of AI research into an interpretable, forward-looking map of innovation. These insights enable Datacraft to strengthen strategic planning, refine internal R&D priorities, and anticipate client needs in a rapidly shifting technical landscape.
-
+This analysis forms a solid baseline for detecting emerging AI research directions within arXiv. The combination of TF-IDF scoring, bigram analysis, and temporal exploration provides Datacraft with early signals of fast-moving research areas. The pipeline is reproducible, extensible, and ready to support more advanced NLP or modeling techniques in future iterations.
